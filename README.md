@@ -17,7 +17,7 @@ Every capture followed the same loop. I ran Snort against the capture and read t
 
 ---
 
-## Group 1: Port Scan
+## Port Scan
 
 **Alert:** `[122:5:1] (portscan) TCP Filtered Portscan` (Attempted Information Leak, priority 2)
 
@@ -36,7 +36,7 @@ The hex dump of the Snort log was the most useful part for me, since the scan su
 
 ---
 
-## Group 2: Malformed Packets
+## Fragmented Packets
 
 **Alerts:** two from Snort's fragment handling (`frag3`), both from the same source
 
@@ -61,7 +61,7 @@ Both alerts carry the same IP ID (242), which tells me they belong to the same f
 
 ---
 
-## Group 3: Malicious Payload
+## Shellcode in an HTTP response
 
 **Alert:** `[1:1394:17] INDICATOR-SHELLCODE x86 inc ecx NOOP` (Executable Code was Detected, priority 1)
 
@@ -83,7 +83,7 @@ A `.hlp` file is a Windows Help file, so my best guess is that the file was the 
 
 ---
 
-## Group 4: Writing Custom Signatures
+## Writing Custom signatures
 
 Both of these captures were normal traffic, but the company wanted an alert any time a specific event happened. Each rule needed to fire exactly once on its capture. The full rules are in [`rules/proj3.rules`](rules/proj3.rules).
 
