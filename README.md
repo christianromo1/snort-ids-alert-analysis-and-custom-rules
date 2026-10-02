@@ -15,8 +15,6 @@ The goal was to take an alert, figure out what it actually meant, and then prove
 
 Every capture followed the same loop. I ran Snort against the capture and read the alert file, then went back to the raw traffic with tcpdump and Wireshark to confirm what Snort told me and to fill in the details the alert didn't give.
 
-`[paste the exact Snort command you ran here]`
-
 ---
 
 ## Group 1: Port Scan
@@ -36,8 +34,6 @@ A port scan is one machine knocking on a bunch of ports on another machine to se
 
 The hex dump of the Snort log was the most useful part for me, since the scan summary is sitting right there in the ASCII column (Connection Count 200, IP Count 1, Port/Proto Count 200, ports 21 through 1031). From my understanding that summary is Snort's own count, meaning it backed up the numbers I pulled out of Wireshark instead of leaving me to trust only my own math.
 
-Whether the scan actually found anything open: `[add what you saw in Wireshark, like RST packets, SYN-ACKs, or silence]`
-
 ---
 
 ## Group 2: Malformed Packets
@@ -56,7 +52,6 @@ Whether the scan actually found anything open: `[add what you saw in Wireshark, 
 | Protocol | UDP |
 | Ports | Consistent, not random (31915 to 20197) |
 | Timing | Sub-second, the whole event sits between 9.61 and 9.62 seconds in the capture |
-| Packets / rate | `[add the packet count and the packets-per-second you calculated]` |
 
 Both alerts carry the same IP ID (242), which tells me they belong to the same fragmented datagram, and they fired about a third of a millisecond apart. In Wireshark, packet 8 shows a 36-byte payload that starts with the UDP header and then runs out into nothing but zeros.
 
@@ -131,8 +126,6 @@ Snort rule writing and tuning, IDS alert triage, packet analysis (Wireshark and 
 **A good signature is specific enough to fire once, on the right thing.** A content match with no limits can trigger on a stray `02` anywhere in the payload, so `offset` and `depth` mattered, and combining them with the username is what made the RADIUS rule actually mean something.
 
 **Research is part of the job.** I had to look up what `INDICATOR-SHELLCODE x86 inc ecx NOOP` meant before I could explain it, and I think that is close to what an analyst does with any alert they haven't seen before.
-
-`[closing line: something honest about what was hardest or what you would do differently]`
 
 ## Repo Contents
 
