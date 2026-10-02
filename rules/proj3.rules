@@ -1,0 +1,10 @@
+# Custom Snort signatures for the Group 4 captures
+# (transcribed from my screenshots, double-check against the original myRules/proj3.rules)
+
+# capture-08-p01.pcap: TFTP write request for rfc1350.txt
+# 0x0002 is the TFTP write request opcode, and the filename follows it
+alert udp any any -> 192.168.0.13 69 ( msg:"CTFTP Write Request for rfc1350.txt"; content:"|00 02|rfc1350.txt"; sid:10005450; rev:1; )
+
+# capture-10-p08.pcap: RADIUS auth passed for the backup account (steve)
+# 0x02 in the first payload byte is Access-Accept (successful login)
+alert udp 127.0.0.1 1812 -> 127.0.0.1 65443 ( msg:"Capture 7 RADIUS Auth Passed"; content:"|02|"; offset:0; depth:1; content:"steve"; sid:10005452; rev:1; )
