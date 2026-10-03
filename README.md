@@ -6,6 +6,12 @@ The goal was to take an alert, figure out what it actually meant, and then prove
 
 > The `.pcap` files and the assignment prompt belong to the course, so they are not included in this repo. Everything here is my own analysis and my own rules.
 
+## What I Found
+
+- **Port scan:** One host (10.0.23.109) scanned 80.237.98.132 at about 25.7 packets per second, hitting ports in random order.
+- **Fragmentation DoS:** Malformed UDP fragments from 10.1.1.1, including a zero-byte fragment, which Snort flagged as a possible denial of service attempt.
+- **Shellcode:** A NOP sled inside a web server's response, which led me to a malicious Windows Help file (`evil1.hlp`) the client downloaded.
+
 ## Tools
 
 - **Snort** for running the captures and writing custom signatures
